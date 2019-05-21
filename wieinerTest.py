@@ -1,18 +1,32 @@
 #!/bin/usr/env python
 import scipy
-from scipy import ndimage
+from scipy import ndimage, misc, signal
 import numpy as np
-import math
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
-start = -2*np.pi #start sin(wt)
-stop = 2*np.pi #end sin(wt)
-x=np.linspace(start, stop, num=500, endpoint=True, retstep=False, dtype=None, axis=0)
-hf=np.sin(x) #low frequency sin(wt)
-lf=np.sin(1000*x) #high frequency sin(1000*wt)
-y=hf+lf
-plt.figure()
-plt.plot(x,y)
-plt.xlabel('Angle [rad] in time domain')
-plt.ylabel('Signal with both components')
+
+#getting image
+image_file=('Lenna.png')
+image = mpimg.imread(image_file)
+#print("Image Shape:",image.shape())
+plt.imshow(image)
+#plt.show()
+image.shape()
+
+#Noise
+np.random.seed(19680801)
+sigma=0.1
+mu=0
+#nse = sigma*np.random.randn(len(t))+mu # white noise
+
+#filter signal
+#fil_sig=signal.wiener(sig_nse, mysize=None, noise=None) #filter signal
+
+'''
+fig, axs = plt.subplots(2,1)
+axs[0].imshow(image)
+axs[0].gray()
+axs[0].title('Original Image')
 plt.show()
+'''
