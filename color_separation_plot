@@ -1,0 +1,8 @@
+#!/bin/usr/env python
+#Plot image an each color component
+fig_t, axs_t = plt.subplots(1,4)
+axs_t[0].imshow(img)
+axs_t[1].imshow(R,cmap=cm.gray)
+axs_t[2].imshow(G,cmap=cm.gray)
+axs_t[3].imshow(B,cmap=cm.gray)
+plt.show()

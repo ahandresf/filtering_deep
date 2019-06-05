@@ -11,4 +11,6 @@ dependencies:
     - jupyter
     - scipy
     - matplotlib
+    - scikit-image
+    - opencv
     #- pip:
