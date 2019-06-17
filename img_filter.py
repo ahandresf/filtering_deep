@@ -15,33 +15,39 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm #colors
 from filter_conf import CURRENT_DIR, DATA_DIR, OUTPUT_DIR
 
-#file name
-#input_file='obj_ra120.05441848_dec8.20232396'
-input_file='output_notebook.npy'
-output_file=OUTPUT_DIR+input_file.split('.npy')[0]+'_fil.npy'
-print('input_file:',input_file)
-print('output_file: ',output_file)
+def filter_image(img):
+    #you should use float 32 or something better or you will get NaN values.
+    fil_sig=signal.wiener(img.astype('float64'), mysize=None, noise=None) #filter signal
 
-#getting image
-image_file=DATA_DIR+'/'+input_file
-#img = mpimg.imread(image_file)
-img=np.load(image_file)
+    #Normalizing and convertin to unsigned integer of eight digits
+    fil_sig_n=255*(fil_sig-fil_sig.min())/(fil_sig.max()-fil_sig.min())
+    fil_sig_n=fil_sig_n.round()
+    fil_sig_n=fil_sig_n.astype(np.uint8) #signal normalize uint8
+    return fil_sig, fil_sig_n
 
-#you should use float 32 or something better or you will get NaN values.
-fil_sig=signal.wiener(img.astype('float64'), mysize=None, noise=None) #filter signal
+def plot_images(img,fil_sig_n):
+    fig_t, axs_t = plt.subplots(1,2)
+    axs_t[0].imshow(img)
+    axs_t[1].imshow(fil_sig_n)
+    #plt.savefig('image.jpg')
+    plt.show()
 
-#Normalizing and convertin to unsigned integer of eight digits
-fil_sig=255*(fil_sig-fil_sig.min())/(fil_sig.max()-fil_sig.min())
-fil_sig=fil_sig.round()
-fil_sig=fil_sig.astype(np.uint8)
-np.save(output_file,fil_sig)
-print('Storing image at: %s'%output_file)
+def main():
+    #file name
+    input_file='output_notebook.npy'
+    output_file=OUTPUT_DIR+input_file.split('.npy')[0]+'_fil.npy'
+    print('input_file:',input_file)
+    print('output_file: ',output_file)
 
-'''
-fig_t, axs_t = plt.subplots(1,2)
-axs_t[0].imshow(img)
-axs_t[1].imshow(fil_sig)
-plt.show()
-'''
-#plt.imshow(fil_sig)
-#plt.savefig('image.jpg')
+    #getting image
+    image_file=DATA_DIR+'/'+input_file
+    #img = mpimg.imread(image_file)
+
+    img=np.load(image_file) #load the image
+    fil_sig, fil_sig_n=filter_image(img) #filter the image
+    np.save(output_file,fil_sig) #store the image
+    print('Storing image at: %s'%output_file)
+
+if __name__=='__main__':
+    print('Start running as main script')
+    main()
