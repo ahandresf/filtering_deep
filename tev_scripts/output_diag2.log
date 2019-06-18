@@ -1,0 +1,15 @@
+[33mWARNING: Skipping user bind, non existent bind point (directory) in container: '/lfstev'
+[0m[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/usr/local/lib/python2.7/dist-packages/scipy/signal/signaltools.py:928: RuntimeWarning: divide by zero encountered in true_divide
+  res *= (1 - noise / lVar)
+/usr/local/lib/python2.7/dist-packages/scipy/signal/signaltools.py:928: RuntimeWarning: invalid value encountered in multiply
+  res *= (1 - noise / lVar)
+Start running as main script
+('input_file:', 'images.npy')
+('output_file: ', '/data/ahandres/Output_Filter/images_fil2.npy')
+('Shape of array:', (20000, 4, 101, 101))
+Storing image at: /data/ahandres/Output_Filter/images_fil2.npy
+
+real	6m52.840s
+user	5m17.517s
+sys	1m17.337s
