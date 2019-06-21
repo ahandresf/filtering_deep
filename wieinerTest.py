@@ -13,7 +13,8 @@ from matplotlib.ticker import LinearLocator, FormatStrFormatter
 #import cv2
 
 #getting image
-image_file=('Lenna.png')
+#image_file=('Lenna.png')
+image_file=('lenna_unif.png')
 img = mpimg.imread(image_file)
 
 # Convert the image taking each channel
@@ -26,7 +27,9 @@ img_gray = R * 299. / 1000 + G * 587. / 1000 + B * 114. / 1000 #Gray image
 #plt.show()
 
 #signal
-sig = R #for example pick the red channels
+#sig = R #for example pick the red channels
+sig = img #for example pick the red channels
+
 
 print("signal shape:",sig.shape)
 #signal with noise
@@ -43,7 +46,7 @@ fil_sig_f=scipy.fftpack.fft2(fil_sig)
 #PLOTTING
 #Space domain s and s+noise
 fig_t, axs_t = plt.subplots(1,3)
-axs_t[0].imshow(R,cmap=cm.gray)
+axs_t[0].imshow(sig,cmap=cm.gray)
 axs_t[1].imshow(sig_nse,cmap=cm.gray)
 axs_t[2].imshow(fil_sig,cmap=cm.gray)
 #Fourier for s and s+noise
